@@ -1,0 +1,35 @@
+<% layout('layouts/boilerplate')%> 
+<h1>All Auctions</h1>
+<% const rows = new Array(1) %>
+<div class="container">
+    <% for (let row of rows) { %>
+        <div class="row">
+            <% for (let auction of auctions) {%> 
+                <div class="col-sm">
+                    <div class="card my-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <% if (auction.images.length)  {%>
+                                    <img src="<%= auction.images[0].url %> " class="card-img-top img-fluid embed-responsive-item" alt="Card image cap" crossorigin=""> 
+                                <% } else { %>
+                                    <img src="" class="card-img-top img-fluid embed-responsive-item" alt="Card image cap">  
+                                <% } %>
+                            </div>
+
+                            <h5 class="card-title"><%= auction.name %></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">bid starting: <%= auction.bid_start %></h6>
+                            <a href="auctions/<%=auction._id%>">View</a>
+                        </div>
+        
+                    </div>
+                </div>
+            <% } %> 
+        </div>
+            
+    <% } %> 
+
+</div> 
+
+<script nonce="r@nd0m">
+    const auctions = {features: <%- JSON.stringify(auctions) %>}
+</script>

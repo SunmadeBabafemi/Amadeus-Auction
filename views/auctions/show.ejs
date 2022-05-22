@@ -1,0 +1,114 @@
+<% layout('layouts/boilerplate')%> 
+<% const dclass = ['carousel-item active', 'carousel-item', 'carousel-item', 'carousel-item', 'carousel-item'] %> 
+
+
+
+
+<div class="row ">
+  <div class="col ">
+    <div id="AuctionCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner ">
+        <% auction.images.forEach( (img, i)=> { %> 
+        <div class="carousel-item <%=i === 0 ? 'active' : ''%>">
+          <img src="<%= img.url %> " class='d-block w-100' alt="..." crossorigin="">
+        </div>
+        
+        <% }) %> 
+    
+      </div>
+      <% if (auction.images.length > 1) { %> 
+      <button class="carousel-control-prev" type="button" data-bs-target="#AuctionCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#AuctionCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      <% } %> 
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= auction.name %></h5>
+        <p class="card-text"><%= auction.detail %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-muted">Bidded: <%= auction.bidded %></li>
+        <li class="list-group-item">Submitted by: <%= auction.owner.username %></li>
+        <li class="list-group-item"><%= `$${auction.price} to start bid` %></li>
+        <li class="list-group-item">bid starts: <%=`${auction.bid_start}` %></li>
+      </ul>
+      <% if (currentUser &&  auction.owner.equals(currentUser)) { %>
+        <div class="card-body">
+          <a class="card-link btn btn-info" href="/auctions/<%=auction._id%>/edit">Edit</a>
+          <form class="d-inline" action="/auctions/<%=auction._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">DELETE</button>
+          </form>
+        </div> 
+      <% } %>
+    </div>
+  </div>
+  <div class="col ">
+    <div id="timer">
+      <div class="base-timer">
+        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="base-timer__circle">
+            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+            <path
+            id="base-timer-path-remaining"
+            stroke-dasharray="283"
+            class="base-timer__path-remaining ${remainingPathColor}"
+            d="
+                M 50, 50
+                m -45, 0
+                a 45,45 0 1,0 90,0
+                a 45,45 0 1,0 -90,0
+            "
+            ></path>
+          </g>
+        </svg>
+        <span id="base-timer-label" class="base-timer__label">
+          <!-- ${formatTime(timeLeft)} -->
+        </span>
+      </div>
+    </div>
+    <div  class="card mb-3 submitted-bids" >
+      <div class="card-body bids ">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"></li>
+          <li class="list-group-item"><h4></h4> </li>
+        </ul>
+      </div>
+    </div>
+    <% if (currentUser) { %>
+      <h3>Submit A Bid</h3>
+      <form id="bid-form"  class = "mb-3 validated-form" novalidate class="validated-form">
+        <div class="mb-3">
+          <label class="form-label" for="price"><h4>Bid Price</h4></label>
+          <div class="input-group ">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+              </div>
+              <input type="number" class="form-control" id="price" aria-label="price" placeholder="0"
+                  min="0" name="bid[price]" required>
+              <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+              </div>
+          </div>
+      </div>
+        
+        <button class="btn btn-success" id="bid-submit">Submit</button>
+      </form> 
+   <% } %> 
+
+  </div> 
+</div>
+
+<script>
+  const auction = <%- JSON.stringify(auction) %>
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/bids.js"></script>
+
+

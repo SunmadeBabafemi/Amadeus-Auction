@@ -1,0 +1,49 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container-fluid d-flex justify-content-center align-items-center mt-5">
+    <div class="row" style="width: 30rem;">
+        <div class="col-md-12 col-sm-12 col-lg-12 ">
+            <div class="card shadow">
+                <h1 class="card-title px-2">New Auction</h1>
+                <div class=" card-body">
+                    <form action="/auctions" method="POST" novalidate class="validated-form"
+                        enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Name</label>
+                            <input class="form-control" type="text" id="name" name="auction[name]" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="auction[image]" class="form-label">Upload Image(s) Here</label>
+                            <input class="form-control" type="file" id="auction[image]" name="auction[image]"
+                                multiple>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="detail">Detail</label>
+                            <textarea class="form-control" type="text" id="detail" name="auction[detail]"
+                                required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="price">Auction Price</label>
+                            <div class="input-group ">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="number" class="form-control" id="price" aria-label="price" placeholder="0"
+                                    min="0" name="auction[price]" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button class="btn btn-success">Add Auction</button>
+                        </div>
+
+                    </form>
+                    <a href="/auctions">All Auctions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

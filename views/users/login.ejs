@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="container-fluid d-flex justify-content-center align-items-center mt-5">
+    <div class="row" style="width: 30rem;">
+        <div class="col-md-12 col-sm-12 col-lg-12 ">
+            <div class="card shadow" >
+                <img src="https://www.gannett-cdn.com/presto/2019/06/21/PPHX/0efbb2e7-6c04-490f-8347-9ee007dd83f6-GettyImages-1000850616.jpg" 
+                class="card-img-top" alt="">
+                <div class="card-body">
+                    <h1 class="card-title ">Login</h1>
+                    <form action="/login" method="POST" novalidate class="validated-form">
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username" autofocus required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button class="btn btn-success" >Login</button>
+                        </div>
+    
+                    </form>
+    
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+</div>
